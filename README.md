@@ -30,17 +30,6 @@ W środowiskach wielowalutowych (np. raportowanie kosztów z kilku krajów do je
 - Projekt obsługuje obecnie dwie waluty źródłowe (CHF, PLN) — rozszerzenie na kolejne waluty wymaga dodania ich do zapytania API.
 - Kursy pobierane są jako kursy referencyjne EBC (publikowane raz dziennie) — nie są to kursy transakcyjne banków komercyjnych, co może powodować niewielkie odchylenia względem rzeczywistych rozliczeń.
 - Proces nie zawiera automatycznej walidacji poprawności danych wejściowych (np. wykrywania duplikatów transakcji).
-
-## Możliwe rozszerzenia
-- Dodanie kolejnych walut i automatycznego wykrywania nowych kodów walut w danych źródłowych.
-- Wizualizacja historycznych kursów walut i ich wpływu na wartość kosztów w Power BI.
-- Walidacja danych wejściowych (kontrola duplikatów, braków, wartości odstających).
-
-## Struktura repozytorium
-```
-├── Project Automatyzacja przeliczeń walutowych (Power Query & API)/
-│   └── [pliki projektu Excel / Power Query]
-└── README.md
 ```
 
 ## Autor
