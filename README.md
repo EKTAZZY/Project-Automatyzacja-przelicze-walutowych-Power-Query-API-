@@ -1,15 +1,47 @@
-Automatyzacja przeliczeń walutowych (Power Query & API)
+# Automatyzacja przeliczeń walutowych (Power Query & API)
 
-Projekt mający na celu automatyzację procesu konwersji kosztów księgowanych w różnych walutach (CHF, PLN) na walutę raportowania (EUR) przy użyciu narzędzi MS Excel oraz Power Query.
+## Cel projektu
+Projekt automatyzuje proces konwersji kosztów księgowanych w różnych walutach (CHF, PLN) na walutę raportowania (EUR), z wykorzystaniem MS Excel i Power Query. Celem było wyeliminowanie ręcznego wpisywania kursów walut przy przeliczaniu transakcji z różnych centrów kosztów oraz przygotowanie jednolitego zbioru danych gotowego do dalszej analizy finansowej.
 
-Kluczowe funkcjonalności:
-Pobieranie danych: Automatyczne pobieranie aktualnych kursów walut bezpośrednio z API Europejskiego Banku Centralnego (EBC) przy użyciu Power Query.
+## Problem biznesowy
+W środowiskach wielowalutowych (np. raportowanie kosztów z kilku krajów do jednej centrali) ręczne przeliczanie kursów walut jest czasochłonne i podatne na błędy — zarówno przez nieaktualne kursy, jak i pomyłki przy ręcznym wpisywaniu. Projekt rozwiązuje ten problem przez automatyczne pobieranie aktualnych kursów bezpośrednio ze źródła i podłączenie ich do procesu przeliczania.
 
-Automatyzacja: Wyeliminowanie ręcznego wpisywania kursów i ryzyka błędów przy konwersji transakcji z różnych centrów kosztów.
+## Źródło danych
+- **API Europejskiego Banku Centralnego (EBC)** — oficjalne, darmowe źródło referencyjnych kursów walut, aktualizowane na bieżąco. Dane pobierane bezpośrednio w Power Query bez potrzeby ręcznego eksportu czy pobierania plików.
 
-Ujednolicenie danych: Przygotowanie jednolitego zbioru danych (EUR_Amount) gotowego do dalszej analizy finansowej.
+## Metodologia / przepływ pracy
+1. **Pobranie danych** — połączenie z API EBC w Power Query i pobranie aktualnych kursów walut (CHF, PLN → EUR).
+2. **Transformacja** — dopasowanie formatu kursów do struktury danych transakcyjnych (typy danych, nazwy kolumn, granularność czasowa).
+3. **Łączenie danych** — połączenie tabeli transakcji (kwoty w walucie lokalnej) z tabelą kursów po kluczu waluta + data.
+4. **Przeliczenie** — obliczenie kolumny `EUR_Amount` jako kwota lokalna × odpowiedni kurs.
+5. **Wynik końcowy** — jednolity zbiór danych z kwotami wyrażonymi w EUR, gotowy do dalszej analizy finansowej lub raportowania.
 
-Wykorzystane narzędzia:
-MS Excel (Power Query)
+## Kluczowe funkcjonalności
+- **Automatyczne pobieranie danych** — kursy walut pobierane bezpośrednio z API EBC przy użyciu Power Query, bez ręcznej ingerencji.
+- **Eliminacja błędów ręcznych** — brak potrzeby ręcznego wpisywania czy aktualizowania kursów walut.
+- **Ujednolicenie danych** — przygotowanie spójnego zbioru danych (`EUR_Amount`) niezależnie od waluty źródłowej transakcji.
+- **Powtarzalność** — proces można odświeżyć jednym kliknięciem (Refresh w Power Query) zamiast powtarzać ręczną pracę przy każdej aktualizacji danych.
 
-API Europejskiego Banku Centralnego (EBC)
+## Wykorzystane narzędzia
+- MS Excel (Power Query / Power Query M)
+- API Europejskiego Banku Centralnego (EBC)
+
+## Ograniczenia
+- Projekt obsługuje obecnie dwie waluty źródłowe (CHF, PLN) — rozszerzenie na kolejne waluty wymaga dodania ich do zapytania API.
+- Kursy pobierane są jako kursy referencyjne EBC (publikowane raz dziennie) — nie są to kursy transakcyjne banków komercyjnych, co może powodować niewielkie odchylenia względem rzeczywistych rozliczeń.
+- Proces nie zawiera automatycznej walidacji poprawności danych wejściowych (np. wykrywania duplikatów transakcji).
+
+## Możliwe rozszerzenia
+- Dodanie kolejnych walut i automatycznego wykrywania nowych kodów walut w danych źródłowych.
+- Wizualizacja historycznych kursów walut i ich wpływu na wartość kosztów w Power BI.
+- Walidacja danych wejściowych (kontrola duplikatów, braków, wartości odstających).
+
+## Struktura repozytorium
+```
+├── Project Automatyzacja przeliczeń walutowych (Power Query & API)/
+│   └── [pliki projektu Excel / Power Query]
+└── README.md
+```
+
+## Autor
+[drnvgt](https://github.com/drnvgt)
